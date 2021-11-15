@@ -12,3 +12,4 @@ Here are the precise requirements. Deferred aggregate operator satisfies the fol
 5. Repeated execution on the same `IEnumerable<T>` object yields the same result
 
 In other words, the new aggregate operator should operate similarly to all other operators with deferred execution belonging to the LINQ library.
+
