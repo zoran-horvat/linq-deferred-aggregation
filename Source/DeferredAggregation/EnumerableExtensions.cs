@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using CodingHelmet.DeferredAggregation.Implementation;
 
 namespace CodingHelmet.DeferredAggregation
 {
-
     public static class EnumerableExtensions
     {
-        public static IAggregatedEnumerable<T, TAccumulator> AggregateStream<T, TAccumulator>(
+        public static IAggregatingEnumerable<T, TAccumulator> AggregateStream<T, TAccumulator>(
             this IEnumerable<T> sequence, TAccumulator seed,
             Func<TAccumulator, T, TAccumulator> aggregator) =>
-            new SeededAggregate<T, TAccumulator>(sequence);
+            new SeededAggregateDeclaration<T, TAccumulator>(sequence, seed, aggregator);
     }
 }

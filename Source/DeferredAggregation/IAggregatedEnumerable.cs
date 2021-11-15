@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace CodingHelmet.DeferredAggregation
 {
-    public interface IAggregatedEnumerable<T, TAccumulator>
+    public interface IAggregatingEnumerable<T, TAccumulator>
     {
         IEnumerable<T> AsEnumerable();
-        IAggregatedEnumerable<TNew, TAccumulator> Select<TNew>(Func<T, TNew> map);
+        IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map);
     }
 }
