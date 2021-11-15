@@ -10,14 +10,23 @@ namespace Demo
         private static string ApplyKingArthurSpeech(string line) =>
             line.Replace("three", "five");
 
+        private static void Print(IEnumerable<string> data) =>
+            Console.WriteLine(string.Join(Environment.NewLine, data));
+
         private static void Use(IEnumerable<string> data)
         {
+            int length = data
+                .AggregateStream(0, (sum, line) => sum + line.Length)
+                .Select(ApplyKingArthurSpeech)
+                .Reduce();
+
+            Console.WriteLine($"Length before transform: {length}");
+
             IEnumerable<string> result = data
                 .AggregateStream(0, (sum, line) => sum + line.Length)
                 .Select(ApplyKingArthurSpeech)
                 .AsEnumerable();
-
-            Console.WriteLine(string.Join(Environment.NewLine, result));
+            Print(result);
         }
 
         private static void Main()

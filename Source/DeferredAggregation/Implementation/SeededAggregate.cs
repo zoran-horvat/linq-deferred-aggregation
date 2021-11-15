@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CodingHelmet.DeferredAggregation.Implementation
 {
@@ -41,5 +39,11 @@ namespace CodingHelmet.DeferredAggregation.Implementation
 
         public IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
             new AggregateHandle<T, TAccumulator>(this.ProduceSequence(), () => this.Accumulator).MapData(map);
+
+        public TAccumulator Reduce()
+        {
+            foreach (T _ in this.ProduceSequence()) { }
+            return this.Accumulator;
+        }
     }
 }
