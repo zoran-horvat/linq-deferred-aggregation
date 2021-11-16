@@ -15,12 +15,18 @@ namespace Demo
 
         private static void Use(IEnumerable<string> data)
         {
-            int length = data
-                .AggregateStream(0, (sum, line) => sum + line.Length)
+            int MaxLength(int max, string line) => Math.Max(max, line.Length);
+            int TotalLength(int sum, string line) => sum + line.Length;
+
+            (int lengthBefore, int maxLength) = data
+                .AggregateStream(0, TotalLength)
+                .AggregateStream(0, MaxLength)
                 .Select(ApplyKingArthurSpeech)
                 .Reduce(Print);
 
-            Console.WriteLine($"Length before transform: {length}");
+            Console.WriteLine(
+                $"Length before: {lengthBefore}; " +
+                $"maximum length before: {maxLength}");
         }
 
         private static void Main()

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 
 namespace CodingHelmet.DeferredAggregation.Implementation
 {
-    internal class SeededAggregate<T, TAccumulator> : IAggregatingEnumerable<T, TAccumulator>
+    internal class SeededAggregate<T, TAccumulator> : IAggregatingImplementation<T, TAccumulator>
     {
         public SeededAggregate(
             IEnumerable<T> sequence, TAccumulator seed,
             Func<TAccumulator, T, TAccumulator> aggregator)
         {
-            this.Sequence = sequence;
+            this.InputSequence = sequence;
             this.Accumulator = seed;
             this.Aggregator = aggregator;
             this.ProductionsCount = 0;
         }
 
-        private IEnumerable<T> Sequence { get; }
-        private TAccumulator Accumulator { get; set; }
+        private IEnumerable<T> InputSequence { get; }
+        public IEnumerable<T> Sequence => this.ProduceSequence();
+        public TAccumulator Accumulator { get; set; }
         private Func<TAccumulator, T, TAccumulator> Aggregator { get; }
         private int ProductionsCount { get; set; }
 
-        public IEnumerable<T> AsEnumerable() => this.Sequence;
+        public IEnumerable<T> AsEnumerable() => this.InputSequence;
 
         private IEnumerable<T> ProduceSequence()
         {
@@ -30,7 +31,7 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             }
 
             this.ProductionsCount += 1;
-            foreach (T item in this.Sequence)
+            foreach (T item in this.InputSequence)
             {
                 this.Accumulator = this.Aggregator(this.Accumulator, item);
                 yield return item;
@@ -48,7 +49,7 @@ namespace CodingHelmet.DeferredAggregation.Implementation
 
         public TAccumulator Reduce(Action<IEnumerable<T>> sequenceAction)
         {
-            sequenceAction(this.Sequence);
+            sequenceAction(this.InputSequence);
             return this.Accumulator;
         }
     }

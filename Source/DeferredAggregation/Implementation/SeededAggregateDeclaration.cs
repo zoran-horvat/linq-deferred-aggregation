@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CodingHelmet.DeferredAggregation.Implementation
 {
-    internal class SeededAggregateDeclaration<T, TAccumulator> : IAggregatingEnumerable<T, TAccumulator>
+    internal class SeededAggregateDeclaration<T, TAccumulator> : IAggregatingEnumerable<T, TAccumulator>, IMaterializingAggregate<T, TAccumulator>
     {
         public SeededAggregateDeclaration(
             IEnumerable<T> sequence, TAccumulator seed,
@@ -20,7 +20,7 @@ namespace CodingHelmet.DeferredAggregation.Implementation
 
         public IEnumerable<T> AsEnumerable() => this.Sequence;
 
-        private IAggregatingEnumerable<T, TAccumulator> Materialize() =>
+        public IAggregatingImplementation<T, TAccumulator> Materialize() =>
             new SeededAggregate<T, TAccumulator>(this.Sequence, this.Seed, this.Aggregator);
 
         public IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>

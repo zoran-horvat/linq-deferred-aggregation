@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CodingHelmet.DeferredAggregation.Implementation
 {
-    internal class AggregateHandle<T, TAccumulator> : IAggregatingEnumerable<T, TAccumulator>
+    internal class AggregateHandle<T, TAccumulator> : IAggregatingImplementation<T, TAccumulator>
     {
         public AggregateHandle(IEnumerable<T> sequence, Func<TAccumulator> accumulatorHandle)
         {
@@ -11,8 +11,9 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             this.AccumulatorHandle = accumulatorHandle;
         }
 
-        private IEnumerable<T> Sequence { get; }
+        public IEnumerable<T> Sequence { get; }
         private Func<TAccumulator> AccumulatorHandle { get; }
+        public TAccumulator Accumulator => this.AccumulatorHandle();
 
         public IEnumerable<T> AsEnumerable() => this.Sequence;
 
