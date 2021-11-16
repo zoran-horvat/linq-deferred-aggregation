@@ -49,7 +49,7 @@ namespace CodingHelmet.DeferredAggregation.Implementation
 
         public TAccumulator Reduce(Action<IEnumerable<T>> sequenceAction)
         {
-            sequenceAction(this.InputSequence);
+            sequenceAction(this.ProduceSequence());
             return this.Accumulator;
         }
     }

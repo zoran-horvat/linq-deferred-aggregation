@@ -18,15 +18,17 @@ namespace Demo
             int MaxLength(int max, string line) => Math.Max(max, line.Length);
             int TotalLength(int sum, string line) => sum + line.Length;
 
-            (int lengthBefore, int maxLength) = data
+            ((int lengthBefore, int maxLength), int lengthAfter) = data
                 .AggregateStream(0, TotalLength)
                 .AggregateStream(0, MaxLength)
                 .Select(ApplyKingArthurSpeech)
+                .AggregateStream(0, TotalLength)
                 .Reduce(Print);
 
             Console.WriteLine(
                 $"Length before: {lengthBefore}; " +
-                $"maximum length before: {maxLength}");
+                $"maximum length before: {maxLength}; " +
+                $"length after: {lengthAfter}");
         }
 
         private static void Main()
