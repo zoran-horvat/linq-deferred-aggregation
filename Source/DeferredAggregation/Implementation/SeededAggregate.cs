@@ -41,6 +41,9 @@ namespace CodingHelmet.DeferredAggregation.Implementation
         public IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
             new AggregateHandle<T, TAccumulator>(this.ProduceSequence(), () => this.Accumulator).MapData(map);
 
+        public IAggregatingEnumerable<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
+            new AggregateHandle<T, TNewAccumulator>(this.ProduceSequence(), () => map(this.Accumulator));
+
         public TAccumulator Reduce()
         {
             foreach (T _ in this.ProduceSequence()) { }

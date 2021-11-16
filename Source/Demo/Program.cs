@@ -18,7 +18,7 @@ namespace Demo
             int MaxLength(int max, string line) => Math.Max(max, line.Length);
             int TotalLength(int sum, string line) => sum + line.Length;
 
-            (((int lengthBefore, int maxBefore), int lengthAfter), int maxAfter)  = data
+            (((int lengthBefore, int maxBefore), int lengthAfter), int maxAfter) = data
                 .AggregateStream(0, TotalLength)
                 .AggregateStream(0, MaxLength)
                 .Select(ApplyKingArthurSpeech)
