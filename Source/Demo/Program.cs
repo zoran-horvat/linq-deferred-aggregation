@@ -18,15 +18,9 @@ namespace Demo
             int length = data
                 .AggregateStream(0, (sum, line) => sum + line.Length)
                 .Select(ApplyKingArthurSpeech)
-                .Reduce();
+                .Reduce(Print);
 
             Console.WriteLine($"Length before transform: {length}");
-
-            IEnumerable<string> result = data
-                .AggregateStream(0, (sum, line) => sum + line.Length)
-                .Select(ApplyKingArthurSpeech)
-                .AsEnumerable();
-            Print(result);
         }
 
         private static void Main()

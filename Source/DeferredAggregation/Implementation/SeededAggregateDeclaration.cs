@@ -27,5 +27,8 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             this.Materialize().MapData(map);
 
         public TAccumulator Reduce() => this.Materialize().Reduce();
+
+        public TAccumulator Reduce(Action<IEnumerable<T>> sequenceAction) => 
+            this.Materialize().Reduce(sequenceAction);
     }
 }

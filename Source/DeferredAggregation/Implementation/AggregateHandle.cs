@@ -24,5 +24,11 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             foreach (T _ in this.Sequence) { }
             return this.AccumulatorHandle();
         }
+
+        public TAccumulator Reduce(Action<IEnumerable<T>> sequenceAction)
+        {
+            sequenceAction(this.Sequence);
+            return this.AccumulatorHandle();
+        }
     }
 }
