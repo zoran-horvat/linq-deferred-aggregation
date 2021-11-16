@@ -9,5 +9,10 @@ namespace CodingHelmet.DeferredAggregation
             this IAggregatingEnumerable<T, TAccumulator> sequence,
             Func<T, TNew> map) =>
             sequence.MapData(seq => seq.Select(map));
+
+        public static IAggregatingEnumerable<T, TAccumulator> Where<T, TAccumulator>(
+            this IAggregatingEnumerable<T, TAccumulator> sequence,
+            Func<T, bool> predicate) =>
+            sequence.MapData(seq => seq.Where(predicate));
     }
 }
