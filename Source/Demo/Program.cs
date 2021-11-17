@@ -18,13 +18,13 @@ namespace Demo
             int MaxLength(int max, string line) => Math.Max(max, line.Length);
             int TotalLength(int sum, string line) => sum + line.Length;
 
-            (((int lengthBefore, int maxBefore), int lengthAfter), int maxAfter) = data
+            (int lengthBefore, int maxBefore, int lengthAfter, int maxAfter) = data
                 .AggregateStream(0, TotalLength)
-                .AggregateStream(0, MaxLength)
+                .AggregateStream(0, MaxLength, (len1, max1) => (len1, max1))
                 .Select(ApplyKingArthurSpeech)
                 .Where(line => line.Contains("o"))
-                .AggregateStream(0, TotalLength)
-                .AggregateStream(0, MaxLength)
+                .AggregateStream(0, TotalLength, (prior, len2) => (prior.len1, prior.max1, len2))
+                .AggregateStream(0, MaxLength, (prior, max2) => (prior.len1, prior.max1, prior.len2, max2))
                 .Reduce(Print);
 
             Console.WriteLine(
