@@ -16,11 +16,18 @@ namespace CodingHelmet.DeferredAggregation
             TAccumulator2 seed, Func<TAccumulator2, T, TAccumulator2> aggregator) =>
             sequence.AsImplementation().AggregateStream(seed, aggregator);
 
-        private static IAggregatingEnumerable<T, (TAccumulator1, TAccumulator2)> AggregateStream<T, TAccumulator1, TAccumulator2>(
+        public static IAggregatingEnumerable<T, TAccumulator> AggregateStream<T, TAccumulator1, TAccumulator2, TAccumulator>(
+            this IAggregatingEnumerable<T, TAccumulator1> sequence,
+            TAccumulator2 seed, Func<TAccumulator2, T, TAccumulator2> aggregator,
+            Func<TAccumulator1, TAccumulator2, TAccumulator> combiner) =>
+            sequence.AsImplementation()
+                .AggregateStream(seed, aggregator)
+                .MapAccumulator(((TAccumulator1 a, TAccumulator2 b) tuple) => combiner(tuple.a, tuple.b));
+
+        private static SeededAggregateDeclaration<T, (TAccumulator1 acc1, TAccumulator2 acc2)> AggregateStream<T, TAccumulator1, TAccumulator2>(
             this IAggregatingImplementation<T, TAccumulator1> sequence,
             TAccumulator2 seed, Func<TAccumulator2, T, TAccumulator2> aggregator) =>
-            new SeededAggregateDeclaration<T, (TAccumulator1 acc1, TAccumulator2 acc2)>(
-                sequence.Sequence, (acc1: sequence.Accumulator, acc2: seed),
+            new(sequence.Sequence, (acc1: sequence.Accumulator, acc2: seed),
                 (acc, element) => (sequence.Accumulator, aggregator(acc.acc2, element)));
 
         private static IAggregatingImplementation<T, TAccumulator> AsImplementation<T, TAccumulator>(
