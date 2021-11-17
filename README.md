@@ -1,4 +1,4 @@
-# Deferred Aggregation
+# LINQ Deferred Aggregation
 Library with LINQ extensions that allow aggregating sequences while consuming them.
 
 The goal of this library is to define an operator with deferred execution which accumulates values from a sequence as it is being consumed. However, this new operator itself should not cause the sequence to be consumed, but only accumulate values and present them along with the result of a subsequent call to a method with immediate execution.
