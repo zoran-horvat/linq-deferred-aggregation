@@ -26,8 +26,8 @@ namespace CodingHelmet.DeferredAggregation.Implementation
         private SeededAggregate<T, TAccumulator> MaterializeConcrete() =>
             new(this.Sequence, this.Seed, this.Aggregator);
 
-        public IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
-            this.Materialize().MapData(map);
+        public IAggregatingEnumerable<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
+            this.Materialize().Map(map);
 
         public IAggregatingEnumerable<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
             this.MaterializeConcrete().MapAccumulator(map);

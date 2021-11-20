@@ -5,8 +5,7 @@ namespace CodingHelmet.DeferredAggregation
 {
     public interface IAggregatingEnumerable<T, TAccumulator>
     {
-        IEnumerable<T> AsEnumerable();
-        IAggregatingEnumerable<TNew, TAccumulator> MapData<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map);
+        IAggregatingEnumerable<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map);
         TAccumulator Reduce();
         TAccumulator Reduce(Action<IEnumerable<T>> sequenceAction);
     }
