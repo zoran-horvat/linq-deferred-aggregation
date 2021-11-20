@@ -1,18 +1,15 @@
 using System;
-using System.Linq;
 
 namespace CodingHelmet.DeferredAggregation
 {
     public static class AggregatingLinq
     {
-        public static IAggregatingEnumerable<TNew, TAccumulator> Select<T, TAccumulator, TNew>(
-            this IAggregatingEnumerable<T, TAccumulator> sequence,
-            Func<T, TNew> map) =>
-            sequence.Map(seq => seq.Select(map));
+        public static IAggregatingEnumerable<TNew, TAcc> Select<T, TAcc, TNew>(
+            this IAggregatingEnumerable<T, TAcc> sequence, Func<T, TNew> map) =>
+            throw new NotImplementedException();
 
-        public static IAggregatingEnumerable<T, TAccumulator> Where<T, TAccumulator>(
-            this IAggregatingEnumerable<T, TAccumulator> sequence,
-            Func<T, bool> predicate) =>
-            sequence.Map(seq => seq.Where(predicate));
+        public static IAggregatingEnumerable<T, TAcc> Where<T, TAcc>(
+            this IAggregatingEnumerable<T, TAcc> sequence, Func<T, bool> predicate) =>
+            throw new NotImplementedException();
     }
 }

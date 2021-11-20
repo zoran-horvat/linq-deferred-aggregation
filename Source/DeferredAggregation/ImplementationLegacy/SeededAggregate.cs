@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CodingHelmet.DeferredAggregation.Implementation
+namespace CodingHelmet.DeferredAggregation.ImplementationLegacy
 {
     internal class SeededAggregate<T, TAccumulator> : IAggregatingImplementation<T, TAccumulator>
     {
@@ -38,10 +38,10 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             }
         }
 
-        public IAggregatingEnumerable<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
+        public IAggregatingEnumerableLegacy<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
             new AggregateHandle<T, TAccumulator>(this.ProduceSequence(), () => this.Accumulator).Map(map);
 
-        public IAggregatingEnumerable<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
+        public IAggregatingEnumerableLegacy<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
             new AggregateHandle<T, TNewAccumulator>(this.ProduceSequence(), () => map(this.Accumulator));
 
         public TAccumulator Reduce()

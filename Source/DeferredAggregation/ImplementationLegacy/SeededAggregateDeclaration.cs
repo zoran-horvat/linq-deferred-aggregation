@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace CodingHelmet.DeferredAggregation.Implementation
+namespace CodingHelmet.DeferredAggregation.ImplementationLegacy
 {
-    internal class SeededAggregateDeclaration<T, TAccumulator> : IAggregatingEnumerable<T, TAccumulator>, IMaterializingAggregate<T, TAccumulator>
+    internal class SeededAggregateDeclaration<T, TAccumulator> : IAggregatingEnumerableLegacy<T, TAccumulator>, IMaterializingAggregate<T, TAccumulator>
     {
         public SeededAggregateDeclaration(
             IEnumerable<T> sequence, TAccumulator seed,
@@ -26,10 +26,10 @@ namespace CodingHelmet.DeferredAggregation.Implementation
         private SeededAggregate<T, TAccumulator> MaterializeConcrete() =>
             new(this.Sequence, this.Seed, this.Aggregator);
 
-        public IAggregatingEnumerable<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
+        public IAggregatingEnumerableLegacy<TNew, TAccumulator> Map<TNew>(Func<IEnumerable<T>, IEnumerable<TNew>> map) =>
             this.Materialize().Map(map);
 
-        public IAggregatingEnumerable<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
+        public IAggregatingEnumerableLegacy<T, TNewAccumulator> MapAccumulator<TNewAccumulator>(Func<TAccumulator, TNewAccumulator> map) =>
             this.MaterializeConcrete().MapAccumulator(map);
 
         public TAccumulator Reduce() => this.Materialize().Reduce();

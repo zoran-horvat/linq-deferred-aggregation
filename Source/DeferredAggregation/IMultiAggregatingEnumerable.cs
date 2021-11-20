@@ -1,9 +1,10 @@
+using System.Runtime.CompilerServices;
 using System;
 using System.Collections.Generic;
 
 namespace CodingHelmet.DeferredAggregation
 {
-    public interface IAggregatingEnumerable<T, TAcc>
+    public interface IMultiAggregatingEnumerable<T, TAcc> where TAcc : ITuple
     {
         public TAcc Reduce() =>
             throw new NotImplementedException();
