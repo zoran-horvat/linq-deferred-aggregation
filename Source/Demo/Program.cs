@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodingHelmet.DeferredAggregation;
+using CodingHelmet.DeferredAggregation.Legacy;
 
 namespace Demo
 {

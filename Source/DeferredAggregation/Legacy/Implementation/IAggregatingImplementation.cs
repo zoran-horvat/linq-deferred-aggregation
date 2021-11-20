@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CodingHelmet.DeferredAggregation.ImplementationLegacy
+namespace CodingHelmet.DeferredAggregation.Legacy.Implementation
 {
     internal interface IAggregatingImplementation<T, TAccumulator> : IAggregatingEnumerableLegacy<T, TAccumulator>
     {

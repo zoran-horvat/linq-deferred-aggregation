@@ -1,4 +1,4 @@
-namespace CodingHelmet.DeferredAggregation.ImplementationLegacy
+namespace CodingHelmet.DeferredAggregation.Legacy.Implementation
 {
     internal interface IMaterializingAggregate<T, TAccumulator>
     {

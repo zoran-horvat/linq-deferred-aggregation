@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodingHelmet.DeferredAggregation.ImplementationLegacy;
+using CodingHelmet.DeferredAggregation.Legacy.Implementation;
 
-namespace CodingHelmet.DeferredAggregation
+namespace CodingHelmet.DeferredAggregation.Legacy
 {
     public static class EnumerableExtensionsLegacy
     {

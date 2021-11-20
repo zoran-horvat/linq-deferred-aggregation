@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CodingHelmet.DeferredAggregation.ImplementationLegacy
+namespace CodingHelmet.DeferredAggregation.Legacy.Implementation
 {
     internal class SeededAggregateDeclaration<T, TAccumulator> : IAggregatingEnumerableLegacy<T, TAccumulator>, IMaterializingAggregate<T, TAccumulator>
     {

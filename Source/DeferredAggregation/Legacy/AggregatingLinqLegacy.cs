@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace CodingHelmet.DeferredAggregation
+namespace CodingHelmet.DeferredAggregation.Legacy
 {
     public static class AggregatingLinqLegacy
     {

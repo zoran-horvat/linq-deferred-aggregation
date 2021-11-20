@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CodingHelmet.DeferredAggregation
+namespace CodingHelmet.DeferredAggregation.Legacy
 {
     public interface IAggregatingEnumerableLegacy<T, TAccumulator>
     {
