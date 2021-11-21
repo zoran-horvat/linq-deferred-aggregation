@@ -9,13 +9,28 @@ namespace CodingHelmet.DeferredAggregation.Implementation
             IEnumerable<T> sequence, TAcc seed,
             Func<TAcc, T, TAcc> aggregator)
         {
-            this.Sequence = sequence;
+            this.InputSequence = sequence;
             this.Accumulator = seed;
+            this.AggregationFunction = aggregator;
         }
 
-        public override IEnumerable<T> Sequence { get; }
+        private IEnumerable<T> InputSequence { get; }
+        private TAcc Accumulator { get; set; }
+        Func<TAcc, T, TAcc> AggregationFunction { get; }
+
+        public override IEnumerable<T> Sequence
+        {
+            get
+            {
+                foreach (T item in this.InputSequence)
+                {
+                    this.Accumulator = this.AggregationFunction(this.Accumulator, item);
+                    yield return item;
+                }
+            }
+        }
+
         public override TAcc GetAccumulator() => this.Accumulator;
 
-        private TAcc Accumulator { get; }
     }
 }

@@ -42,16 +42,13 @@ namespace Demo
 
             try
             {
-                (int lengthBefore, int lengthAfter) = data
+                int lengthBefore = data
                     .AggregateStream(0, TotalLength)
                     .Select(ApplyKingArthurSpeech)
                     .Where(line => line.Contains("o"))
-                    .AggregateStream(0, TotalLength)
                     .Reduce(Print);
 
-            Console.WriteLine(
-                $"Length before: {lengthBefore}; " +
-                $"length after: {lengthAfter}");
+                Console.WriteLine($"Length before: {lengthBefore}");
             }
             catch (Exception ex)
             {
