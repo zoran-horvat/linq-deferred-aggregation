@@ -5,15 +5,8 @@ namespace CodingHelmet.DeferredAggregation.Implementation
 {
     internal class SequenceAggregator<T, TAcc> : IAggregatingEnumerable<T, TAcc>
     {
-        public SequenceAggregator(
-            IEnumerable<T> sequence,
-            TAcc seed, Func<TAcc, T, TAcc> aggregator)
-            : this(new SeededAggregator<T, TAcc>(sequence, seed, aggregator))
-        {
-        }
-
-        private SequenceAggregator(SeededAggregator<T, TAcc> aggregator)
-            : this(aggregator.Sequence, () => aggregator.Accumulator)
+        public SequenceAggregator(ElementAggregator<T, TAcc> aggregator)
+            : this(aggregator.Sequence, aggregator.GetAccumulator)
         {
         }
 
