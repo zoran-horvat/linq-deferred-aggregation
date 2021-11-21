@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodingHelmet.DeferredAggregation.Implementation;
 
 namespace CodingHelmet.DeferredAggregation
 {
@@ -7,6 +8,6 @@ namespace CodingHelmet.DeferredAggregation
     {
         public static IAggregatingEnumerable<T, TAcc> AggregateStream<T, TAcc>(
             this IEnumerable<T> sequence, TAcc seed, Func<TAcc, T, TAcc> aggregator) =>
-            throw new NotImplementedException();
+            new SequenceAggregator<T, TAcc>(sequence, seed, aggregator);
     }
 }
